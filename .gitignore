@@ -1,0 +1,11 @@
+# Build artifacts
+System/*.u
+System/MilRP_Make.ini
+System/ucc.log
+*.log
+
+# Editor / OS noise
+*.bak
+*.tmp
+Thumbs.db
+.vs/

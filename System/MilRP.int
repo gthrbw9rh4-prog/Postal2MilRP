@@ -1,0 +1,63 @@
+; MilRP.int - English localization for the MilRP package.
+; Tokens: %n = player name, %f = faction name, %r = rank title, %a = amount
+
+[Public]
+Object=(Name=MilRP.MilRPGameInfo,Class=Class,MetaClass=Engine.GameInfo,Description="Military Roleplay")
+
+[MilRPGameInfo]
+GameName="Military Roleplay"
+MsgWelcome="%n reported for service."
+MsgPaycheck="Paycheck received: +$%a"
+MsgNoPaycheck="No paycheck this period - you are off duty."
+MsgOnDuty="%n is now ON DUTY."
+MsgOffDuty="%n is now OFF DUTY."
+MsgJoinedFaction="%n enlisted with %f."
+MsgPromoted="%n has been promoted to %r."
+MsgDemoted="%n has been demoted to %r."
+MsgRDM="%n has been penalised for random deathmatch."
+MsgFineApplied="Fine applied: -$%a"
+MsgPaycheckPending="Paycheck ready: collect $%a"
+MsgPaycheckCollected="Collected $%a"
+MsgBankTransfer="Bank: $%a"
+MsgFrozen="%n has been frozen"
+MsgUnFrozen="%n has been unfrozen"
+FailNoFaction="You must join a faction before going on duty."
+FailNonCombatant="Your faction has no duty roster."
+FailCooldown="Wait %a seconds before doing that again."
+FailFactionFull="That faction is full."
+FailNoSwitch="Faction changes are disabled on this server."
+FailInvalidFaction="Unknown faction."
+FailNotAdmin="Admin access required."
+FailFunds="Insufficient funds."
+
+[MilRPPlayer]
+MePrefix="* "
+DoPrefix="** "
+LocalPrefix="[Local] "
+WalletLabel="Wallet"
+FactionListHeader="Factions (use: joinfaction <tag|name|id>):"
+RankListHeader="Ranks (title / RP score required):"
+StatusFormat="%f | %r | %d | Wallet $%a | Bank $%b | RP %s"
+DutyOnText="ON DUTY"
+DutyOffText="OFF DUTY"
+NoFactionText="No faction"
+MenuHint="Type /pick <number> or /close"
+ChatPrefix="[Chat] "
+EmotePrefix="* "
+DoEmotePrefix="** "
+FactionChatPrefix="[Faction] "
+AdminChatPrefix="[Admin] "
+RadioPrefix="[RADIO] "
+CommandPrefix="[COMMAND] "
+AdminPrefix="[ADMIN] "
+PayPrefix="[PAY] "
+BankLabel="Bank"
+
+[MilRPHUD]
+DashOnDuty="ON DUTY"
+DashOffDuty="OFF DUTY"
+DashNoFaction="UNASSIGNED - type /factions"
+DashPayIn="PAY IN"
+DashRP="RP"
+FeedHeader="BASE COMMAND"
+CurrencySymbol="$"
