@@ -33,23 +33,38 @@ echo [MilRP] Dir   : %GAME_DIR%
 echo [MilRP] Map   : %MAP%   Game: %GAME%
 echo [MilRP] Ports : game UDP %PORT%, query UDP %QPORT% (forward both on your router)
 
-cd /d "%GAME_DIR%" || (echo [MilRP] GAME_DIR not found. & pause & exit /b 1)
+rem  NOTE: this script intentionally avoids parenthesized if-blocks - the
+rem  install paths contain "(x86)", which breaks cmd's block parsing when
+rem  the variables expand inside a (...) group. goto labels are used instead.
+
+if exist "%GAME_DIR%\Postal2.exe" goto DIR_OK
+echo [MilRP] GAME_DIR not found - edit the GAME_DIR variable at the top.
+pause
+exit /b 1
+
+:DIR_OK
+cd /d "%GAME_DIR%"
 
 rem  Auto-install the headless launcher from the SDK if it is missing.
-if not exist "UCC.exe" (
-    if exist "%SDK_DIR%\UCC.exe" (
-        echo [MilRP] Copying UCC.exe from the POSTed SDK into %GAME_DIR% ...
-        copy /y "%SDK_DIR%\UCC.exe" "UCC.exe" >nul
-    )
-)
+if exist "UCC.exe" goto RUN_UCC
+if not exist "%SDK_DIR%\UCC.exe" goto NO_UCC
+echo [MilRP] Copying UCC.exe from the POSTed SDK ...
+copy /y "%SDK_DIR%\UCC.exe" "UCC.exe" >nul
+goto RUN_UCC
 
+:NO_UCC
+echo [MilRP] UCC.exe not found - falling back to Postal2.exe.
+echo [MilRP] Warning - Postal2.exe opens a client window and holds your
+echo [MilRP] Steam session. Install UCC.exe for a true headless server.
+Postal2.exe server %MAP%?Game=%GAME%?VAC=%VAC%?Port=%PORT%?QueryPort=%QPORT% -log=server.log
+goto END
+
+:RUN_UCC
 rem  UE2 parses absolute exe paths containing "(x86)" incorrectly - run the
 rem  relative name from the cd'd System dir.
-if exist "UCC.exe" (
-    UCC.exe server %MAP%?Game=%GAME%?VAC=%VAC%?Port=%PORT%?QueryPort=%QPORT% -log=server.log
-) else (
-    echo [MilRP] UCC.exe not found - falling back to Postal2.exe (opens a
-    echo [MilRP] client window and holds your Steam session; install UCC.exe
-    echo [MilRP] for a true headless server).
-    Postal2.exe server %MAP%?Game=%GAME%?VAC=%VAC%?Port=%PORT%?QueryPort=%QPORT% -log=server.log
-)
+UCC.exe server %MAP%?Game=%GAME%?VAC=%VAC%?Port=%PORT%?QueryPort=%QPORT% -log=server.log
+
+:END
+echo.
+echo [MilRP] Server process exited. See server.log in the game System dir.
+pause
