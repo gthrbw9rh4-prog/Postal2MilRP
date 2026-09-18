@@ -3,7 +3,7 @@
 ## Build / verify
 - Build: `Tools\make.bat "<Postal 2 install dir>"` (needs POSTed SDK `System\ucc.exe`). Errors land in `<Postal 2>\System\ucc.log`.
 - Installs: game = `C:\Program Files (x86)\Steam\steamapps\common\POSTAL2Complete`, SDK (`UCC.exe`) = `...\POSTAL2Editor`. Always build against POSTAL2Editor: `Tools\make.bat "C:\Program Files (x86)\Steam\steamapps\common\POSTAL2Editor"`.
-- Runtime smoke test: from POSTAL2Editor\System run `UCC.exe server MPDGT-Asylum?Game=MilRP.MilRPGameInfo` (a copy of that map lives in POSTAL2Editor\Maps). Use a relative exe name; UE2 mis-parses absolute paths containing `(x86)`.
+- Runtime smoke test: from POSTAL2Complete\System run `Postal2.exe server MPDGT-Asylum?Game=MilRP.MilRPGameInfo` (retail has no ucc.exe; `Postal2.exe` hosts the `server` commandlet). Do NOT host with `POSTAL2Editor\System\UCC.exe` - it is engine version 1409, announces to 333networks, and modern clients reject it with a protocol-mismatch error. Use a relative exe name; UE2 mis-parses absolute paths containing `(x86)`.
 - UE2 has no `bool` static arrays (use `byte`) and `Do` is a reserved word (`do..until`). `Goto` and `Warn` are also reserved built-ins; use `GotoPlayer`/`WarnPlayer` instead.
 - Pre-compile lint (brace balance, misplaced `local`, duplicate functions, missing MilRP.* refs): `powershell -File Tools\lint.ps1`. Run it before every `make.bat`.
 - Exec commands run on the client; anything touching RP state must go through a `Server*` RPC in `MilRPPlayer` (`reliable if (Role < ROLE_Authority)`). Stock `Say`/`TeamSay` are already replicated that way.

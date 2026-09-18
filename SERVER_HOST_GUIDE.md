@@ -21,7 +21,7 @@ ServerPackages=MilRP
 | 7778  | UDP   | Server browser query                   |
 
 Forward both on the router and allow them through Windows Firewall for
-`UCC.exe`. Without the query port the server shows in the list but pings "??".
+`Postal2.exe`. Without the query port the server shows in the list but pings "??".
 
 ## 3. Start the server
 
@@ -33,9 +33,14 @@ Edit the `GAME_DIR` / `MAP` / `PORT` variables at the top of the script to fit
 your install. Equivalent manual command:
 
 ```
-cd /d "C:\Program Files (x86)\Steam\steamapps\common\POSTAL2Editor\System"
-UCC.exe server MPDGT-Asylum?Game=MilRP.MilRPGameInfo?VAC=1?Port=7777?QueryPort=7778 -log=server.log
+cd /d "C:\Program Files (x86)\Steam\steamapps\common\POSTAL2Complete\System"
+Postal2.exe server MPDGT-Asylum?Game=MilRP.MilRPGameInfo?VAC=1?Port=7777?QueryPort=7778 -log=server.log
 ```
+
+**Important:** run the retail `Postal2.exe` (build 5100, Steam-integrated),
+*not* the SDK's `POSTAL2Editor\System\UCC.exe`. The SDK binary is engine
+version 1409, announces to 333networks, and modern clients reject it with a
+"you need the latest Postal2 update" protocol error.
 
 The server announces itself automatically as long as `bLANServer=False` in
 `System\Postal2.ini` and outbound internet is allowed. Check `server.log` for

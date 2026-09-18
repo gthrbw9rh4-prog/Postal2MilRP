@@ -83,7 +83,10 @@ Local installs on this machine:
 - SDK / compiler: `C:\Program Files (x86)\Steam\steamapps\common\POSTAL2Editor` (build against this one)
 
 Build status: compiles clean (`Success - 0 error(s)`) against build 5100 and a headless
-`ucc server` boots `MilRPGameInfo` with no script warnings.
+`Postal2.exe server` boots `MilRPGameInfo` with no script warnings. The retail install
+has no `ucc.exe`; use `Postal2.exe server` (or `LaunchDedicatedServer.bat`) to host. Do
+NOT host with `POSTAL2Editor\System\UCC.exe` - that binary is engine version 1409,
+announces to 333networks, and modern clients reject it with a protocol-mismatch error.
 
 ## Running a server
 
@@ -94,7 +97,7 @@ Build status: compiles clean (`Success - 0 error(s)`) against build 5100 and a h
 
 ```
 cd /d "C:\Program Files (x86)\Steam\steamapps\common\POSTAL2Complete\System"
-ucc server MPDGT-Asylum?Game=MilRP.MilRPGameInfo?StartingCurrency=500?PaycheckInterval=300
+Postal2.exe server MPDGT-Asylum?Game=MilRP.MilRPGameInfo?StartingCurrency=500?PaycheckInterval=300
 ```
 
 URL options: `StartingCurrency`, `PaycheckInterval`, `EnforceFactions`, `PersistRecords`, `AutoPromote`, `RPTest`.
