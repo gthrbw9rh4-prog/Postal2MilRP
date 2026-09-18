@@ -3,6 +3,10 @@
 
 [Public]
 Object=(Name=MilRP.MilRPGameInfo,Class=Class,MetaClass=Engine.GameInfo,Description="Military Roleplay")
+Object=(Name=MilRP.MilRPShowcaseGame,Class=Class,MetaClass=Postal2Game.P2GameInfoSingle,Description="MilRP - Military Roleplay Showcase")
+
+[MilRPShowcaseGame]
+GameName="MilRP - Military Roleplay (Offline Showcase)"
 
 [MilRPGameInfo]
 GameName="Military Roleplay"
