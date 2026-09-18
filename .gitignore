@@ -9,3 +9,4 @@ System/ucc.log
 *.tmp
 Thumbs.db
 .vs/
+MilRP/Classes/MilRPShowcase*.uc
