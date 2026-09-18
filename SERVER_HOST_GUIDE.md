@@ -34,13 +34,27 @@ your install. Equivalent manual command:
 
 ```
 cd /d "C:\Program Files (x86)\Steam\steamapps\common\POSTAL2Complete\System"
-Postal2.exe server MPDGT-Asylum?Game=MilRP.MilRPGameInfo?VAC=1?Port=7777?QueryPort=7778 -log=server.log
+UCC.exe server MPDGT-Asylum?Game=MilRP.MilRPGameInfo?VAC=1?Port=7777?QueryPort=7778 -log=server.log
 ```
 
-**Important:** run the retail `Postal2.exe` (build 5100, Steam-integrated),
-*not* the SDK's `POSTAL2Editor\System\UCC.exe`. The SDK binary is engine
-version 1409, announces to 333networks, and modern clients reject it with a
-"you need the latest Postal2 update" protocol error.
+**Important — which binary to run:**
+
+- The retail `System` folder ships **no** `UCC.exe`. Copy
+  `POSTAL2Editor\System\UCC.exe` into `POSTAL2Complete\System` once
+  (`LaunchDedicatedServer.bat` does this automatically). Engine version is
+  determined by the DLLs in the working dir, so the copied launcher still
+  reports the modern protocol — verified: `Init: Version: 5100`.
+- `UCC.exe server` = true headless console — no window, no Steam session
+  lock, so you can launch your own client on the same machine.
+- `Postal2.exe server` opens a "Postal2 (Running)" client window and holds
+  your Steam profile — only a fallback when no `UCC.exe` is available.
+- Never run from `ShareThePain\System` — that is the legacy 1409-era MP
+  engine; it reports an old protocol and crashes on this mod.
+
+**Master list:** Postal 2's official community master is
+`master.333networks.com` (GameSpy is defunct). Both server uplink
+(`ServerActors=IpDrv.UdpServerUplink`) and the in-game browser
+(`ListFactories[0]`) already point there — no change needed.
 
 The server announces itself automatically as long as `bLANServer=False` in
 `System\Postal2.ini` and outbound internet is allowed. Check `server.log` for
