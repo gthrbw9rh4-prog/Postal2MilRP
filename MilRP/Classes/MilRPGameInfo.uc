@@ -49,6 +49,19 @@ var config bool			bUseFactionSpawns;			// PlayerStart.TeamNumber is treated as a
 var config bool			bAllowMatchTimers;			// false = force TimeLimit/GoalScore to 0 (persistent world)
 var config string		HostTestName;				// fallback name for local Steam offline tests (default "Player")
 
+// ---------------------------------------------------------------------------
+// Network compatibility advertising
+// The 5100 engine build still speaks the STP-era "1409X" netcode - every
+// real client sends HELLO VER=1409. The engine natively stamps
+// Level.EngineVersion/MinNetVersion with the build number (5100), which
+// makes the native handshake reject every connecting client and shows a
+// "you need the latest Postal2 update" dialog on their side. These values
+// re-advertise the true wire protocol (and fix the server-browser
+// Version / Min. Compatible Version columns to match public 1409X servers).
+// ---------------------------------------------------------------------------
+var config string		NetEngineVersion;			// protocol version reported to clients + browser (default "1409")
+var config string		NetMinVersion;				// lowest client protocol version accepted (default "1407")
+
 // --- Announcements ---------------------------------------------------------
 var config bool			bAnnounceDutyChanges;
 var config bool			bAnnouncePromotions;
@@ -208,6 +221,14 @@ event InitGame(out string Options, out string Error)
 	local string InOpt;
 
 	Super.InitGame(Options, Error);
+
+	// Advertise the real wire protocol (STP-era 1409X), not the build number:
+	// the native handshake reads Level.EngineVersion/MinNetVersion, which the
+	// engine stamps as 5100 and then rejects every 1409 client on sight.
+	if (NetEngineVersion != "")
+		Level.EngineVersion = NetEngineVersion;
+	if (NetMinVersion != "")
+		Level.MinNetVersion = NetMinVersion;
 
 	StartingCurrency = GetIntOption(Options, "StartingCurrency", StartingCurrency);
 	PaycheckInterval = GetIntOption(Options, "PaycheckInterval", PaycheckInterval);
@@ -2745,6 +2766,8 @@ defaultproperties
 	bUseFactionSpawns=true
 	bAllowMatchTimers=false
 	HostTestName="Owner_Marcus"
+	NetEngineVersion="1409"
+	NetMinVersion="1407"
 
 	// --- Announcements
 	bAnnounceDutyChanges=true
