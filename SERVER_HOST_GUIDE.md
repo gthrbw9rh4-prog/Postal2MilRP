@@ -60,6 +60,13 @@ The server announces itself automatically as long as `bLANServer=False` in
 `System\Postal2.ini` and outbound internet is allowed. Check `server.log` for
 `Uplink`/`MasterServer` lines to confirm.
 
+**Connecting players must use the build-5100 client** — `Postal2.exe` from
+`POSTAL2Complete\System` (the main "POSTAL 2" Steam launch option). The
+legacy "Postal 2 MP" client (`ShareThePain\System\Postal2MP.exe`) speaks
+protocol 1409 and is rejected with a "you need the latest Postal2 update"
+dialog. The server's own `server.log` shows rejected clients as
+`HELLO ... VER=1409`.
+
 ## 4. First login — make yourself admin
 
 Staff groups are 0–4 (`0`=player, `1`=moderator, `2`=admin,
